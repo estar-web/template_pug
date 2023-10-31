@@ -1,8 +1,10 @@
-@use "../global/" as global;
+@use "../global/" as *;
+@use "sass:math";
+@use "sass:map";
 
 body{
-  font-family: global.$mainFont;
-  color: map-get(global.$color, textColor);
+  font-family: $mainFont;
+  color: map.get($color, textColor);
 }
 
 a{
