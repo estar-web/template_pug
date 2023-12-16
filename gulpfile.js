@@ -8,45 +8,59 @@ const htmlBeautify = require("gulp-html-beautify");
 const browserSync = require("browser-sync");
 
 /**
- * 開発用ディレクトリ
+ * 変数設定
  */
-const src = {
+const path = {
     root: 'src/',
-    sass: ''
+    // data: 'src/_data/site.json',
+    css: '/css/',
+};
 
-    data: 'src/_data/',
-  };
+const src ={
+    html: '*.html',
+    sass: '/src/assets/sass/**/*.scss',
+    php: '*.php',
+    js: 'js/*.js',
+}
+
+const url ={
+    //PHPを使う時にここを有効にしてローカルアドレス入力
+    // local: "",
+}
+
 
 function compileSass() {
-    return gulp.src("/src/assets/sass/**/*.scss")
+    return gulp.src(src.sass)
         .pipe(sass())
         .pipe(postcss([autoprefixer(), cssSorter()]))
         .pipe(mmq())
-        .pipe(gulp.dest("/css/"))
+        .pipe(gulp.dest(path.css))
 }
 
 function watch() {
-    gulp.watch("/src/assets/sass/**/*.scss", gulp.series(compileSass,browserReload));
-    gulp.watch("/src/*.html", formatHTML);
-    gulp.watch("/*.php",browserReload);
-    gulp.watch("/js/*.js",browserReload);
+    gulp.watch(src.sass, gulp.series(compileSass, browserReload));
+    gulp.watch(src.html, formatHTML);
+    gulp.watch(src.php, browserReload);
+    gulp.watch(src.js, browserReload);
 }
 
 function formatHTML() {
-    return gulp.src("/src/*.html")
+    return gulp.src(src.html)
         .pipe(htmlBeautify({
             indent_size: 2,
             indent_with_tabs: true,
         }))
-        .pipe(gulp.dest("/"))
+        // .pipe(gulp.dest("/"))
 }
 
 function browserInit(done) {
-    browserSync.init({
-        proxy: "", //各々のローカルホストアドレスを記載
-        notify: false,                  // ブラウザ更新時に出てくる通知を非表示にする
-        open: "external",                // ローカルIPアドレスでサーバを立ち上げる
-    });
+    //PHPファイルを扱う時にここの処理を有効にする
+
+    // browserSync.init({
+    //     proxy: url.local,                  //各々のローカルホストアドレスを記載
+    //     notify: false,                  // ブラウザ更新時に出てくる通知を非表示にする
+    //     open: "external",                // ローカルIPアドレスでサーバを立ち上げる
+    // });
     done();
 }
 
@@ -55,4 +69,4 @@ function browserReload(done) {
     done();
 }
 
-exports.default = gulp.parallel(formatHTML, watch, compileSass,browserInit);
+exports.default = gulp.parallel(formatHTML, watch, compileSass, browserInit);
