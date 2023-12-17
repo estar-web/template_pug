@@ -13,28 +13,38 @@ $padding-tab: 30px;
 $padding-sp: 20px;
 
 // font-family
-$mainFont:  'Noto Sans JP', Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+$mainFont: 'Noto Sans JP', Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
 
 // breakpoint
 $breakpoints : (
-  "s":"screen and (min-width:576px)",
-  "m":"screen and (min-width:768px)",
-  "l":"screen and (min-width:992px)",
-  // "xl":"screen and (min-width:1200px)",
-  "xl":"screen and (min-width:#{$m-inner})",
-  "xxl":"screen and (min-width:1400px)",
-);
+  //SPファーストのキー値
+  "s":"width >= 576px)",
+  "m":"width >= 768px)",
+  "l":"width >= 992px)",
+  // "xl":"width >= 1200px)",
+  "xl":"width >= #{$m-inner})",
+  "xxl":"width >= 1400px)",
+  
+  //PCファーストのキー値
+  's': '(width <= 575.98px)',
+  'm': ' (width <= 767.98px)',
+  'l': '(width <= 991.98px)',
+  'xl': '(width <= #{$m-inner - 0.02px})',
+  'xxl': '(width <= 1399.98px)',
+) !default;
+
+
+
 
 // transition time
 $ts-time: 0.3s;
 
 // z-index
-$z-map : (
-  modal: 100,   // モダール
-	drawer: 40,   // ドロワー
-	floating: 30, // フローティングアイテム
+$z-map : (modal: 100, // モダール
+  drawer: 40, // ドロワー
+  floating: 30, // フローティングアイテム
   header: 20,
-	footer: 10,   // フッター
+  footer: 10, // フッター
   base: 1,
   under: -1,
 );
