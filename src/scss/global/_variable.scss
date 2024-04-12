@@ -10,12 +10,18 @@ $ff-main: 'Noto Sans JP', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', M
 
 // breakpoint
 $breakpoints: (
-  "xl":"screen and (max-width:1600px)",
-  "l":"screen and (max-width:1280px)",
-  "m":"screen and (max-width:1080px)",
-  "hov": "screen and (min-width: 768px)",
-  "sp":"screen and (max-width:767px)",
-  "xs":"screen and (max-width:499px)",
+  //PCファーストのキー値
+  's': '(width <= 575.98px)',
+  'm': ' (width <= 767.98px)',
+  'l': '(width <= 991.98px)',
+  'xl': '(width <= #{$m-inner - 0.02px})',
+  'xxl': '(width <= 1399.98px)',
+  //SPファーストのキー値
+  // "xxl":"screen and (width >= 1400px)",
+  // "xl":"screen and (width >= #{$l-inner})",
+  // "l":"screen and (width >= 992px)",
+  // "m":"screen and (width >= 768px)",
+  // "s":"screen and (width >= 576px)",
 );
 
 // layout
