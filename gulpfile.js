@@ -23,6 +23,11 @@ const pngQuant = require("imagemin-pngquant");
 // webp変換
 const webp = require("gulp-webp"); //gulp-webpでwebp変換
 
+// webpackを使用
+const webpackStream = require("webpack-stream");
+const webpack = require("webpack");
+const webpackConfig = require("./webpack.config");
+
 // 入出力するフォルダを指定
 const srcBase = "./src";
 const srcBaseAssets = "./src/assets";
@@ -32,7 +37,7 @@ const distBaseAssets = "./dist/assets";
 const srcPath = {
   scss: srcBase + "/scss/**/*.scss",
   html: srcBase + "/**/*.html",
-  img: srcBaseAssets + "/images/**/*",
+  img: srcBase + "/images/**/*.{png,jpg,jpeg,svg,gif,ico,mp4,webp}",
   js: srcBaseAssets + "/js/*.js",
   pug: srcBase + "/pug/**/*.pug",
 };
@@ -127,8 +132,14 @@ const cssSass = () => {
 /**
  * js
  */
-const js = () => {
-  return gulp.src(srcPath.js).pipe(gulp.dest(distPath.js));
+const bundleJs = (done) => {
+  webpackStream(webpackConfig, webpack)
+    .on("error", function (e) {
+      console.error(e);
+      this.emit("end");
+    })
+    .pipe(gulp.dest(distPath.js));
+  done();
 };
 
 /**
@@ -184,7 +195,7 @@ const browserSyncReload = (done) => {
 const watchFiles = () => {
   gulp.watch(srcPath.pug, gulp.series(compilePug, browserSyncReload));
   gulp.watch(srcPath.scss, gulp.series(cssSass));
-  gulp.watch(srcPath.js, gulp.series(js, browserSyncReload));
+  gulp.watch(srcPath.js, gulp.series(bundleJs, browserSyncReload));
   gulp.watch(srcPath.img, gulp.series(image, browserSyncReload));
 };
 
@@ -196,6 +207,6 @@ const watchFiles = () => {
  */
 exports.default = gulp.series(
   clean,
-  gulp.parallel(compilePug, cssSass, js, image),
+  gulp.parallel(compilePug, cssSass, bundleJs, image),
   gulp.parallel(watchFiles, browserSyncFunc)
 );
