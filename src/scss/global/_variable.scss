@@ -1,12 +1,40 @@
-// color
-$color: (
-  main: #D96894,
+@use "./function" as fn;
 
-  text: #333,
-);
+// css変数
+:root {
+  // color
+  --color-primary: #F0813B;
+  --color-text: #333;
 
-// font-family
-$ff-main: 'Noto Sans JP', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+  // font-family
+  --ff-main: "Zen Maru Gothic", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+  --ff-eg: "Montserrat", sans-serif;
+
+  // layout
+  --inner-s: 34.375rem;   //550px
+  --inner-l: 50rem;       //800px
+  --inner-xl: 67.5rem;    //1080px
+
+  // padding
+  --padding-s: 1.25rem;
+  --padding: 1.25rem;
+
+  // header height
+  --header-pc: 6.625rem;
+  --header-sp: 6rem;
+
+  // ease-time
+  --ease-time: 0.3s;
+  // ease-type
+  --ease-type: ease;
+
+  // breakpoint
+  --break-xxl: 1399.98px;   //1399.98px
+  --break-xl: 1079.98px;    //1079.98px
+  --break-l: 991.98px;     //991.98px
+  --break-m: 767.98px;     //767.98px
+  --break-s: 575.98px;     //575.98px
+}
 
 // breakpoint
 $breakpoints: (
@@ -14,11 +42,11 @@ $breakpoints: (
   's': '(width <= 575.98px)',
   'm': ' (width <= 767.98px)',
   'l': '(width <= 991.98px)',
-  'xl': '(width <= #{$m-inner - 0.02px})',
+  'xl': '(width <= 1079.98px',
   'xxl': '(width <= 1399.98px)',
   //SPファーストのキー値
   // "xxl":"screen and (width >= 1400px)",
-  // "xl":"screen and (width >= #{$l-inner})",
+  // "xl":"screen and (width >= 1080px)",
   // "l":"screen and (width >= 992px)",
   // "m":"screen and (width >= 768px)",
   // "s":"screen and (width >= 576px)",

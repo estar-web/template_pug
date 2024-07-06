@@ -8,6 +8,22 @@
   }
 }
 
+// font周りのmixin
+@mixin font($size: null, $max-fz, $min-fz, $lh: null, $ls: null, $fw: null){
+  @if $size{
+    font-size: clamp(fn.rem($min-fz), calc($max-fz / $size * 100vw), fn.rem($max-fz));
+  }
+  @if $lh{
+    line-height: fn.lh($lh, $max-fz);
+  }
+  @if $ls{
+    letter-spacing: fn.spacing($ls);
+  }
+  @if $fw{
+    font-weight: $fw;
+  }
+}
+
 // font-sizeのVW化
 @mixin fz_vw($size: 16){
   font-size: fn.get_vw($size);
@@ -15,10 +31,21 @@
 
 // リンクのホバーアクションデフォルト
 @mixin hover() {
-  @include mq(hov){
-    transition: opacity var.$ts-time ease;
-    &:hover{
-      opacity: 0.7;
+  @media(hover:hover) {
+    &:any-link:hover,
+    &:enabled:hover{
+      @content;
     }
   }
+}
+
+// font-sizeをclamp関数で出力
+@mixin fz_clamp($minFontSize, $maxFontSize, $minWidth: 375, $maxWidth: var.$xl-inner) {
+  font-size: fn.calc_clamp($minFontSize, $maxFontSize, $minWidth, $maxWidth);
+}
+
+//コンテンツ部分のmixin
+@mixin contents($width: 1080){
+  width: min(100%,fn.rem($width));
+  margin-inline: auto;
 }

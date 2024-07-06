@@ -1,4 +1,4 @@
-@use "../global/" as global;
+@use "../global/" as *;
 
 .u-hide{
   display: block;
@@ -9,7 +9,7 @@
 
 .u-hide--sp{
   display: block;
-  @include global.mq(sp){
+  @include global.mq(){
     display: none;
   }
 }
@@ -23,7 +23,7 @@
 
 .u-show--sp{
   display: none;
-  @include global.mq(sp){
+  @include global.mq(){
     display: block;
   }
 }
