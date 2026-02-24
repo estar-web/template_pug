@@ -1,0 +1,25 @@
+@use "../global/" as *;
+
+@mixin inner($width: var(--inner-xl), $padding: var(--padding)) {
+  width: min(100%,calc($width + $padding * 2));
+  padding-inline: $padding;
+  margin-inline: auto;
+  position: relative;
+
+  @include mq() {
+    max-width: var(--inner-s);
+    padding-inline: var(--padding-s);
+  }
+}
+
+.l-inner {
+  @include inner();
+}
+
+.l-inner--l{
+  @include inner(var(--inner-l))
+}
+
+.l-inner--s {
+  @include inner(var(--inner-s));
+}

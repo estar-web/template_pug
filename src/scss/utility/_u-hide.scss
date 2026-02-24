@@ -2,28 +2,28 @@
 
 .u-hide{
   display: block;
-  @include global.mq(){
+  @include mq(){
     display: none;
   }
 }
 
-.u-hide--sp{
+.u-hide--l{
   display: block;
-  @include global.mq(){
+  @include mq(l){
     display: none;
   }
 }
 
 .u-show{
   display: none;
-  @include global.mq(){
+  @include mq(){
     display: block;
   }
 }
 
-.u-show--sp{
+.u-show--l{
   display: none;
-  @include global.mq(){
+  @include mq(l){
     display: block;
   }
 }
